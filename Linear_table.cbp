@@ -1,13 +1,16 @@
+//2017 3 22
 #include<stdio.h>
 #include<stdlib.h>
-#define MAXSIZE 10
-#define ADDSIZE 20
+#define MAXSIZE 10//初始化大小
+#define ADDSIZE 20//增加大小
+//定义结构体
 typedef struct list
 {
     int *head;
     int length;
     int size;
 }Qlist;
+//创建空线性表
 int initlist(Qlist *L)
 {
     L->head=(int *)malloc(sizeof(int)*MAXSIZE);
@@ -21,6 +24,7 @@ int initlist(Qlist *L)
     printf("线性表初始化成功！\n");
     return 1;
 }
+//插入数据
 int listinset(Qlist *L,int i,int e)
 {
     int k;
@@ -58,6 +62,7 @@ int listinset(Qlist *L,int i,int e)
     printf("%d插入成功！\n",L->head[i-1]);
     return 1;
 }
+//删除数据
 int listdel(Qlist *L,int i)
 {
     int k;
@@ -87,6 +92,7 @@ int listdel(Qlist *L,int i)
     printf("%d删除成功！\n",L->head[i-1]);
     return 1;
 }
+//计算线性表长度
 int listlength(Qlist *L)
 {
     if (L->head==NULL)
@@ -97,6 +103,7 @@ int listlength(Qlist *L)
     printf("线性表长度为%d",L->length);
     return 1;
 }
+//摧毁线性表
 int destorylist(Qlist *L)
 {
     if (L->head==NULL)
@@ -111,6 +118,7 @@ int destorylist(Qlist *L)
     printf("线性表摧毁成功！\n");
     return 1;
 }
+//重置线性表
 int clearlist(Qlist *L)
 {
     if (L->head==NULL)
@@ -122,6 +130,7 @@ int clearlist(Qlist *L)
     printf("线性表重置成功！\n");
     return 1;
 }
+//获取表中数据
 int getelem(Qlist *L,int i)
 {
     if (L->head==NULL)
@@ -137,6 +146,7 @@ int getelem(Qlist *L,int i)
     printf("[%d]获取成功！\n",L->head[i-1]);
     return 1;
 }
+//判断数据与位置的匹配
 int locateelem(Qlist *L,int i,int e)
 {
     if (L->head==NULL)
@@ -160,6 +170,7 @@ int locateelem(Qlist *L,int i,int e)
         return 0;
     }
 }
+//显示线性表中所有数据
 int display(Qlist *L)
 {
     int i;
