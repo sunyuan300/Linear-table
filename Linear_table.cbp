@@ -1,0 +1,184 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAXSIZE 10
+#define ADDSIZE 20
+typedef struct list
+{
+    int *head;
+    int length;
+    int size;
+}Qlist;
+int initlist(Qlist *L)
+{
+    L->head=(int *)malloc(sizeof(int)*MAXSIZE);
+    if (L->head==NULL)
+    {
+        printf("线性表初始失败！\n");
+        return 0;
+    }
+    L->length=0;
+    L->size=MAXSIZE;
+    printf("线性表初始化成功！\n");
+    return 1;
+}
+int listinset(Qlist *L,int i,int e)
+{
+    int k;
+    if (L->head==NULL)
+    {
+        printf("线性表不存在！\n");
+        return 0;
+    }
+    if (L->length>=L->size)
+    {
+        int *newbase = (int *)realloc(L->head, sizeof(int) * (L->size + ADDSIZE));
+        if (newbase==NULL)
+        {
+            printf("增加地址失败！\n");
+            return 0;
+        }
+        L->head=newbase;
+        L->size+=ADDSIZE;
+        printf("增加地址成功！\n");
+    }
+    if (i<1 || i>L->length+1)
+    {
+        printf("输入插入位置错误！\n");
+        return 0;
+    }
+    if (i<L->length)
+    {
+        for (k=L->length-1;k>=i-1;k--)
+        {
+            L->head[k+1]=L->head[k];
+        }
+    }
+    L->head[i-1]=e;
+    L->length++;
+    printf("%d插入成功！\n",L->head[i-1]);
+    return 1;
+}
+int listdel(Qlist *L,int i)
+{
+    int k;
+    if (L->head==NULL)
+    {
+        printf("线性表不存在！\n");
+        return 0;
+    }
+    if (L->length==0)
+    {
+        printf("线性表为空表！\n");
+        return 0;
+    }
+    if (i<1 || i>L->length)
+    {
+        printf("输入删除位置错误！\n");
+        return 0;
+    }
+    if (i<L->length)
+    {
+        for (k=i;k<=L->length-1;k++)
+        {
+            L->head[k-1]=L->head[k];
+        }
+    }
+    L->length--;
+    printf("%d删除成功！\n",L->head[i-1]);
+    return 1;
+}
+int listlength(Qlist *L)
+{
+    if (L->head==NULL)
+    {
+        printf("线性表不存在！\n");
+        return 0;
+    }
+    printf("线性表长度为%d",L->length);
+    return 1;
+}
+int destorylist(Qlist *L)
+{
+    if (L->head==NULL)
+    {
+        printf("线性表不存在！\n");
+        return 0;
+    }
+    free(L->head);
+    L->head=NULL;
+    L->length=0;
+    L->size=0;
+    printf("线性表摧毁成功！\n");
+    return 1;
+}
+int clearlist(Qlist *L)
+{
+    if (L->head==NULL)
+    {
+        printf("线性表不存在！\n");
+        return 0;
+    }
+    L->length=0;
+    printf("线性表重置成功！\n");
+    return 1;
+}
+int getelem(Qlist *L,int i)
+{
+    if (L->head==NULL)
+    {
+        printf("线性表不存在！\n");
+        return 0;
+    }
+    if (i<1 || i>L->length)
+    {
+        printf("输入查询位置错误！\n");
+        return 0;
+    }
+    printf("[%d]获取成功！\n",L->head[i-1]);
+    return 1;
+}
+int locateelem(Qlist *L,int i,int e)
+{
+    if (L->head==NULL)
+    {
+        printf("线性表不存在！\n");
+        return 0;
+    }
+    if (i<1 || i>L->length)
+    {
+        printf("输入判断位置错误！\n");
+        return 0;
+    }
+    if (L->head[i-1]==e)
+    {
+        printf("位置与数据匹配成功！\n");
+        return 1;
+    }
+    else
+    {
+        printf("位置与数据匹配失败！\n");
+        return 0;
+    }
+}
+int display(Qlist *L)
+{
+    int i;
+    for (i=0;i<L->length;i++)
+    {
+        printf("%d\n",L->head[i]);
+    }
+    return 1;
+}
+int main()
+{
+    int m;
+    Qlist L;
+    initlist(&L);
+    for (m=1;m<=25;m++)
+    {
+        listinset(&L,m,m);
+    }
+    display(&L);
+    destorylist(&L);
+    return 0;
+}
